@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["androidBuildToolVersion"]
+
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
+
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
+    api "androidx.legacy:legacy-support-v4:$rootProject.supportV4Version"
+
+    api "androidx.navigation:navigation-fragment:$rootProject.navigationVersion"
+    api "androidx.navigation:navigation-ui:$rootProject.navigationVersion"
+
+    api "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-livedata:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-runtime:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+
+    api "androidx.paging:paging-runtime:$rootProject.pagingVersion"
+}
